@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: mscartoes
+  profiles:
+    active: local
+  rabbitmq:
+    host: ${RABBITMQ_SERVER}
+    port: 5672
+    username: guest
+    password: guest
+
+
+  boot:
+    admin:
+      client:
+        instance:
+          management-base-url=http://localhost:8080/:
+
+server:
+  port: 0
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://@${EUREKA_SERVER}:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+    hostname: localhost
+
+
+mq:
+  queues:
+    emissao-cartoes: emissao-cartoes
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  file:
+    name: ./logs/log-file.log

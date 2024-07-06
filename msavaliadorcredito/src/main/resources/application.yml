@@ -1,0 +1,38 @@
+
+spring:
+  application:
+    name: msavaliadorcredito
+  profiles:
+    active: local
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+
+server:
+  port: 0
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://@${EUREKA_SERVER}:8761/eureka
+  instance:
+    instance-id: ${spring.application.name}:${spring.application.instance_id:${random.value}}
+    prefer-ip-address: true
+    hostname: localhost
+
+mq:
+  queues:
+    emissao-cartoes: emissao-cartoes
+
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+logging:
+  file:
+    name: ./logs/log-file.log
